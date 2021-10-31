@@ -7,8 +7,8 @@ RUN apt-get update -y && apt-get install -y apt-transport-https ca-certificates 
     "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-backports main restricted universe multiverse\n"\
     "deb https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ focal-security main restricted universe multiverse\n" \
   > /etc/apt/sources.list && apt-get update -y && apt-get upgrade -y && \
-  apt-get install -y libncurses5-dev make gcc bison flex libreadline-dev \
-  vim git && rm -rf /var/cache/apt/*
+  apt-get install -y libncurses5-dev make gcc g++ bison flex libreadline-dev \
+  vim git curl wget llvm-11 && rm -rf /var/cache/apt/*
 
 COPY init.sh /init.sh
 
