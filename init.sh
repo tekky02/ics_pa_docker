@@ -11,7 +11,7 @@ bash init.sh nemu
 
 bash init.sh abstract-machine
 
-echo 'alias hostnamectl=hostname' >> ~/.bashrc # docker can't use hostnamectl
+echo '#!/bin/sh\nhostname' > /bin/hostnamectl && chmod +x /bin/hostnamectl # docker cannot use hostnamectl command
 
 curl https://gist.githubusercontent.com/tekky02/184256c872e82218914b6ef6d2fb0501/raw/e9a8cd2ce6c0ddf4a31f7450cfbd7c575d80515c/ics_Makefile  \
  > Makefile
