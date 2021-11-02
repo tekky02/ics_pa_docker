@@ -1,17 +1,29 @@
-#!/bin/bash
+#!/bin/sh
 
-git config --global user.name "tekky"
-git config --global user.email "tekky@foxmail.com"
+read -p "Initialize Repo now? This shall clone ics2021 by default. [y/N] " choice
 
-cd ~ && git clone -b 2021 https://github.com/NJU-ProjectN/ics-pa.git ics2021 && cd ics2021
+if [ "$choice" == "" ]; then choice="N"; fi
 
-git branch -m master
+if [ "$choice" == "Y" ] || [ "$choice" == "y" ]; then
+    name=$(git config --get user.name)
+    email=$(git config --get user.email)
 
-bash init.sh nemu
+    if [ "$name" == "" ] || [ "$email" == "" ]; then
+        read -p "input your git username: " name
+        read -p "input your git email: " email
 
-bash init.sh abstract-machine
+        git config --global user.name $name
+        git config --global user.email $email
+    fi
 
-echo '#!/bin/sh\nhostname' > /bin/hostnamectl && chmod +x /bin/hostnamectl # docker cannot use hostnamectl command
+    cd ~ && git clone -b 2021 https://github.com/NJU-ProjectN/ics-pa.git ics2021 && cd ics2021
 
-curl https://gist.githubusercontent.com/tekky02/184256c872e82218914b6ef6d2fb0501/raw/e9a8cd2ce6c0ddf4a31f7450cfbd7c575d80515c/ics_Makefile  \
+    git branch -m master
+
+    bash init.sh nemu
+
+    bash init.sh abstract-machine
+
+    curl https://gist.githubusercontent.com/tekky02/184256c872e82218914b6ef6d2fb0501/raw/e9a8cd2ce6c0ddf4a31f7450cfbd7c575d80515c/ics_Makefile  \
  > Makefile
+fi
